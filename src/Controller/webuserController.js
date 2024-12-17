@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { User } from "../schema/webUserSchema.js";
+import { User } from "../schema/webuserSchema.js";
 import jwt from "jsonwebtoken";
 import { sendMail } from "../utils/sendMail.js";
 import { SecretKey } from "../config/config.js";
