@@ -32,7 +32,7 @@ export const createWebuserController = async (req, res) => {
       expiresIn: "1d",
     });
 
-    const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+    const baseUrl = process.env.BASE_URL || "https://nexo-footwears.vercel.app";
     const verificationLink = `${baseUrl}/verify?token=${token}`;
 
     try {
