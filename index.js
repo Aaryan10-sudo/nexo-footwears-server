@@ -5,6 +5,8 @@ import { connectDB } from "./src/db/connectMongodb.js";
 import cors from "cors";
 import { cartRouter } from "./src/Router/cartRouter.js";
 import { fileRouter } from "./src/Router/fileRouter.js";
+import { orderRouter } from "./src/Router/orderRouter.js";
+import { khaltiRouter } from "./src/Router/khaltiRouter.js";
 
 config();
 connectDB();
@@ -16,6 +18,8 @@ app.use(cors());
 app.use("/", userRouter);
 app.use("/cart", cartRouter);
 app.use("/file", fileRouter);
+app.use("/order", orderRouter);
+app.use("/", khaltiRouter);
 app.use(express.static("./public/"));
 
 app.listen(port, () => {

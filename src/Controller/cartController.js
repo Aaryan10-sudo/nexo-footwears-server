@@ -2,7 +2,8 @@ import { Cart } from "../schema/cartSchema.js";
 
 export const addCartController = async (req, res, next) => {
   try {
-    const data = req.body;
+   const {userId , productId, quantity} = req.body;
+
     const result = await Cart.create(data);
     res.status(201).json({
       success: true,
