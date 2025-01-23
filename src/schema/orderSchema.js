@@ -55,8 +55,8 @@ const OrderSchema = new mongoose.Schema(
 
     paymentMethod: {
       type: String,
-      enum: ["COD", "khalti", "esewa"],
-      default: "COD",
+      enum: ["cod", "khalti", "esewa"],
+      default: "cod",
     },
 
     deliveryStatus: {
