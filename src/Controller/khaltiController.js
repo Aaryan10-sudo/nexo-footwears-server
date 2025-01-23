@@ -21,7 +21,7 @@ export async function initializeKhaltiPaymentController(req, res, next) {
       purchase_order_id: orderId,
       purchase_order_name: updateOrder.productName,
       amount: updateOrder.totalPrice * 100,
-      return_url: `${process.env.BACKEND_URI}complete-khalti-payment`,
+      return_url: `${process.env.BACKEND_URI}/complete-khalti-payment`,
       website_url: `${process.env.BACKEND_URI}`,
     });
     res.status(200).json({
