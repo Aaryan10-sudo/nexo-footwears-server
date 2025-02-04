@@ -3,11 +3,12 @@ import pkg from "pg";
 const { Pool } = pkg;
 
 config();
-const isProduction = process.env.NODE_ENV === "production";
 
 export const pool = new Pool({
   connectionString: process.env.POSTGRES_DATABASE_URL,
-  ssl: false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 export const connectPostgres = async () => {
