@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { DatabaseURL } from "../config/config.js";
 
-export const connectDB = () => {
+export const connectMongo = () => {
   mongoose.connect(DatabaseURL);
-  console.log("Connected to database");
+  console.log("MongoDB connected Successfully!");
 };

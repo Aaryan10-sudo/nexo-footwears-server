@@ -1,0 +1,11 @@
+{
+  "name": "Nike Air Max",
+  "price": 149,
+  "brand": "Nike",
+  "category": "Shoes",
+  "product_description": "A comfortable and stylish running shoe with superior cushioning.",
+  "stock": 50,
+  "size": ["7", "8", "9", "10", "11"],
+  "color": ["Black", "White", "Blue"],
+  "image": "nike-air-max.png"
+}
