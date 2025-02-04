@@ -3,6 +3,7 @@ import { User } from "../schema/webuserSchema.js";
 import jwt from "jsonwebtoken";
 import { sendMail } from "../utils/sendMail.js";
 import { SecretKey } from "../config/config.js";
+import { pool } from "../db/connectPostgresdb.js";
 
 export const createWebuserController = async (req, res) => {
   try {
@@ -11,8 +12,11 @@ export const createWebuserController = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields." });
     }
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    const existingUser = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+    if (existingUser.rows.length >= 1) {
       return res.status(400).json({ message: "Email already exists" });
     }
 
@@ -21,14 +25,17 @@ export const createWebuserController = async (req, res) => {
       await bcrypt.genSalt(12)
     );
 
-    const user = await User.create({
-      email,
-      username,
-      phoneNumber,
-      password: hashedPassword,
-    });
+    const query = `
+      INSERT INTO users (username, email, phoneNumber, password) 
+      VALUES ($1, $2, $3, $4) 
+      RETURNING *;
+    `;
 
-    const token = jwt.sign({ id: user._id }, SecretKey, {
+    const values = [username, email, phoneNumber, hashedPassword];
+
+    const result = await pool.query(query, values);
+
+    const token = jwt.sign({ id: result.rows[0]._id }, SecretKey, {
       expiresIn: "1d",
     });
 
@@ -73,10 +80,9 @@ export const createWebuserController = async (req, res) => {
         .json({ message: "Failed to send verification email." });
     }
 
-    const { password: _, ...userData } = user.toObject();
     res.status(201).json({
       message: `Verification mail sent to ${email}. Please verify your account.`,
-      data: userData,
+      data: result.rows,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -86,18 +92,17 @@ export const createWebuserController = async (req, res) => {
 export const verifyWebuserController = async (req, res, next) => {
   try {
     let id = req._id;
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      { isVerifiedMail: true },
-      { new: true }
+    const updatedUser = await pool.query(
+      "UPDATE users SET isVerifiedMail = true WHERE _id = $1 RETURNING *",
+      [id]
     );
-    if (!updatedUser) {
+    if (updatedUser < 1) {
       return res.status(404).json({ message: "User not found." });
     }
     res.status(200).json({
       success: true,
       message: "Email verified successfully.",
-      data: updatedUser.toObject(),
+      data: updatedUser.rows,
     });
   } catch (error) {
     res.status(400).json({
@@ -112,26 +117,31 @@ export const loginWebuserController = async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    const user = await User.findOne({ email });
-    if (!user) {
+    const user = await pool.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
+
+    if (user.length < 1) {
       return res.status(404).json({ message: "Invalid Credentials" });
     }
-    if (!user.isVerifiedMail) {
+    if (user.isVerifiedMail === false) {
       return res.status(400).json({ message: "Email has not verified yet" });
     }
-    const isVerifiedPassword = await bcrypt.compare(password, user.password);
-
+    const isVerifiedPassword = await bcrypt.compare(
+      password,
+      user.rows[0].password
+    );
     if (!isVerifiedPassword) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
-    const token = jwt.sign({ id: user._id }, SecretKey, {
+    const token = jwt.sign({ id: user.rows[0]._id }, SecretKey, {
       expiresIn: "1d",
     });
 
     res.status(200).json({
       message: "Log in successfull",
       token: token,
-      data: user,
+      data: user.rows,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -141,11 +151,13 @@ export const loginWebuserController = async (req, res, next) => {
 export const getSpecificWebuser = async (req, res, next) => {
   try {
     let id = req._id;
-    const user = await User.findById(id);
-    if (!user) {
+    const user = await pool.query("SELECT * FROM users WHERE _id = $1", [id]);
+    if (user.length < 1) {
       return res.status(404).json({ message: "User not found." });
     }
-    res.status(200).json({ message: "User found successfully.", data: user });
+    res
+      .status(200)
+      .json({ message: "User found successfully.", data: user.rows });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

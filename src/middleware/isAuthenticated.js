@@ -14,6 +14,7 @@ export const isAuthenticated = async (req, res, next) => {
       return res.status(400).json({ message: "Token not provided." });
     }
     const decodedData = await jwt.verify(token, SecretKey);
+    console.log(decodedData);
     req._id = decodedData.id;
 
     next();
