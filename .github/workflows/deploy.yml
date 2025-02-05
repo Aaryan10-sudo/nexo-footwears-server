@@ -23,4 +23,4 @@ jobs:
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up --ci --service 5a80b132-8b1a-4dbb-8119-781cbce18b3b
+        run: railway up --ci --service captivating-charm
