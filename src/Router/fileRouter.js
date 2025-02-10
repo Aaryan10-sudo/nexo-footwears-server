@@ -3,7 +3,7 @@ import { Router } from "express";
 import {
   handleMultipleFileController,
   handleSingleFileController,
-} from "../Controller/fileController.js";
+} from "../Controller/file.controller.js";
 import { upload } from "../utils/sendFile.js";
 
 export const fileRouter = Router();

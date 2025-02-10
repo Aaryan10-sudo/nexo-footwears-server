@@ -5,7 +5,7 @@ import {
   getAllProducts,
   getProductById,
   updateProductById,
-} from "../Controller/productController.js";
+} from "../Controller/product.controller.js";
 
 export const productRouter = Router();
 productRouter.post("/add", createProduct);

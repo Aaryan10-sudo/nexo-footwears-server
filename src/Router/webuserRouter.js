@@ -5,7 +5,7 @@ import {
   getSpecificWebuser,
   loginWebuserController,
   verifyWebuserController,
-} from "../Controller/webuserController.js";
+} from "../Controller/webuser.controller.js";
 
 export const userRouter = Router();
 userRouter.route("/register").post(createWebuserController);

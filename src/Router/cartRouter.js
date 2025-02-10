@@ -3,7 +3,7 @@ import {
   addCartController,
   deleteCart,
   getSpecificUserCart,
-} from "../Controller/cartController.js";
+} from "../Controller/cart.controller.js";
 
 export const cartRouter = Router();
 cartRouter.route("/add").post(addCartController);

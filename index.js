@@ -9,6 +9,7 @@ import { productRouter } from "./src/Router/productRouter.js";
 import { userRouter } from "./src/Router/webuserRouter.js";
 import { connectMongo } from "./src/db/connectMongodb.js";
 import { connectPostgres } from "./src/db/connectPostgresdb.js";
+import morgan from "morgan";
 
 config();
 connectMongo();
@@ -18,6 +19,7 @@ const port = process.env.PORT || 1111;
 
 app.use(json());
 app.use(cors());
+app.use(morgan("dev"));
 app.use("/", userRouter);
 app.use("/cart", cartRouter);
 app.use("/file", fileRouter);
@@ -25,6 +27,10 @@ app.use("/order", orderRouter);
 app.use("/product", productRouter);
 app.use("/", khaltiRouter);
 app.use(express.static("./public/"));
+
+app.get("/", (req, res) => {
+  res.send("Welcome to Nexo Backend");
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

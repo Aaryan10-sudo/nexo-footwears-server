@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   completeKhaltiPaymentController,
   initializeKhaltiPaymentController,
-} from "../Controller/khaltiController.js";
+} from "../Controller/khalti.controller.js";
 
 export const khaltiRouter = Router();
 

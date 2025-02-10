@@ -5,7 +5,7 @@ import {
   getAllOrders,
   getSpecificOrder,
   updateOrder,
-} from "../Controller/orderController.js";
+} from "../Controller/order.controller.js";
 
 export const orderRouter = Router();
 
