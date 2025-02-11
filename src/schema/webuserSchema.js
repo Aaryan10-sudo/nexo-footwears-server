@@ -12,7 +12,6 @@ const webuserSchema = new mongoose.Schema({
   },
   phoneNumber: {
     type: Number,
-    required: true,
     unique: true,
   },
   password: {
