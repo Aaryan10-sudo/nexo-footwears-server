@@ -1,7 +1,7 @@
 const autocannon = require("autocannon");
 
 const targetUrl = "https://nexo-footwears.up.railway.app";
-const duration = 30;
+const duration = 60;
 
 const options = autocannon(
   {
