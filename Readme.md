@@ -19,26 +19,25 @@ docker run -it nexo-server
 
 Some of the tech Nexo footwears uses are
 
-- PostgreSQL Database (A robust relational database used for storing high-volume data efficiently).
-- Redis (Utilized for faster data serving and caching to enhance performance).
-- CI/CD pipeline (Implemented with GitHub Actions for seamless deployment to Railway in a production environment).
-- Docker (The Nexo server is containerized using Docker and published to Docker Hub for easy distribution and deployment).
-- Mongo DB (A NoSQL database employed for storing smaller, unstructured datasets.)
-- Node js (The backend runtime environment powering the Nexo Footwears server).
-- Express (A lightweight Node.js framework used to build the backend of the Nexo Footwears server).
+- **PostgreSQL Database** (A robust relational database used for storing high-volume data efficiently).
+- **Redis** (Utilized for faster data serving and caching to enhance performance).
+- **CI/CD pipeline** (Implemented with GitHub Actions for seamless deployment to Railway in a production environment).
+- **Docker** (The Nexo server is containerized using Docker and published to Docker Hub for easy distribution and deployment).
+- **Mongo DB** (A NoSQL database employed for storing smaller, unstructured datasets.)
+- **Node.js** (The backend runtime environment powering the Nexo Footwears server).
+- **Express.js** (A lightweight Node.js framework used to build the backend of the Nexo Footwears server).
 
-### **_Environment Variables_**
-
+**_Environment Variables_**
 Please use .env.example as refrence for the environment variable......
 
 ### API INTEGRATIONS
 
 Nexo footwears use various API integrations such as
 
-- Khalti Payment Integration (E-payment Integration)
-- Esewa Payment Integration (E-payment Integration)
-- Cloudinary (Cloud Storage Integration)
-- Nodemailer (SMTP mail protocol for sending mail)
+- **Khalti Payment Integration** (E-payment Integration)
+- **Esewa Payment Integration** (E-payment Integration)
+- **Cloudinary** (Cloud Storage Integration)
+- **Nodemailer** (SMTP mail protocol for sending mail)
 
 ### Privacy concern
 
