@@ -42,3 +42,4 @@ The request that server handles in 30sec
 ```bash
 cd test
 npm start
+```
