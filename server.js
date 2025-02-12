@@ -10,6 +10,7 @@ import { userRouter } from "./src/Router/webuserRouter.js";
 import { connectMongo } from "./src/db/connectMongodb.js";
 import { connectPostgres } from "./src/db/connectPostgresdb.js";
 import morgan from "morgan";
+import { googleOauthRouter } from "./src/Router/googleAuth.js";
 
 config();
 connectMongo();
@@ -25,6 +26,7 @@ app.use("/cart", cartRouter);
 app.use("/file", fileRouter);
 app.use("/order", orderRouter);
 app.use("/product", productRouter);
+app.use("/google", googleOauthRouter);
 app.use("/", khaltiRouter);
 app.use(express.static("./public/"));
 
